@@ -10,7 +10,7 @@ This REST API was created as part of my project in the university course, Web De
 
 ### Installing
 
-* To install this API for yourself simply clone the below command and upload the files onto a web server.
+* To install this API for yourself simply run the below command in the terminal of your choice and upload the cloned files onto a web server.
 
 ```
 git clone https://github.com/sawa2005/restprojekt.git
