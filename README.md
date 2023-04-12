@@ -4,7 +4,7 @@ REST API created to manage a database that stores my personal portfolio's inform
 
 ## Description
 
-This REST API was created as part of my project in the university course, Web Development III and was based on a simpler API created for a earlier assignment in the same course. The purpose of the API is to manage a database that stores my portfolio's information and act as a CRUD interface. This means that this API can both Create, Read, Update and Delete data from the database remotely. The API can be used via a client like Advanced Rest Client or Postman as well as from a website with the help of Fetch API which is the way I am using it.
+This REST API was created as part of my project in the university course, Web Development III and was based on a simpler API created for a earlier assignment in the same course. The purpose of the API is to manage a database that stores my portfolio's information and act as a CRUD interface. This means that this API can both Create, Read, Update and Delete data from the database remotely. In my case it manages data for my projects, work experience and education that is then displayed on my portfolio website. The API can be used via a client like Advanced Rest Client or Postman as well as from a website with the help of Fetch API which is the way I am using it.
 
 ## Getting Started
 
