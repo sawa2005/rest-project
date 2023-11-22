@@ -1,7 +1,7 @@
 <?php
 
 require 'config/Database.php';
-require 'classes/Studies.class.php';
+require 'classes/Programs.class.php';
 
 /*Headers med inställningar för din REST webbtjänst*/
 
@@ -30,11 +30,11 @@ $database = new Database();
 $db = $database->connect();
 
 // Skapar instans av klassen för att skicka SQL-frågor till databasen
-$studies = new Studies($db); // Databasanslutning skickas med som parameter
+$programs = new Programs($db); // Databasanslutning skickas med som parameter
 
 switch($method) {
     case 'GET':
-        $response = $studies->read();
+        $response = $programs->read();
 
         // Kontrollerar om resultatet har några rader
         if ($response !== null) {
@@ -44,7 +44,7 @@ switch($method) {
         else {
             http_response_code(404); // Not found - The request has failed
             // Lagrar ett meddelande som sedan skickas tillbaka till anroparen
-            $response = array("message" => "No studies found");
+            $response = array("message" => "No programs found");
         }
         break;
     case 'POST':
@@ -52,21 +52,20 @@ switch($method) {
         $data = json_decode(file_get_contents("php://input"));
 
         // Skickar de medskickade egenskaperna till klassen och sparar dessa i klassens egenskaper
-        $studies->school = $data->school;
-        $studies->name = $data->name;
-        $studies->type = $data->type;
-        $studies->startDate = $data->startDate;
-        $studies->endDate = $data->endDate;
+        $programs->school = $data->school;
+        $programs->name = $data->name;
+        $programs->startDate = $data->startDate;
+        $programs->endDate = $data->endDate;
 
         // Kör funktionen för att skapa en ny kurs
-        if ($studies->create()) {
+        if ($programs->create()) {
             http_response_code(201); // Created
-            $response = array("message" => "Study created");
+            $response = array("message" => "Program created");
         }
 
         else {
             http_response_code(400); // Bad Request - The server could not understand the request due to invalid syntax.
-            $response = array("message" => "Study not created");
+            $response = array("message" => "Program not created");
         }
 
         break;
@@ -80,20 +79,19 @@ switch($method) {
         else {
             $data = json_decode(file_get_contents("php://input"));
 
-            $studies->school = $data->school;
-            $studies->name = $data->name;
-            $studies->type = $data->type;
-            $studies->startDate = $data->startDate;
-            $studies->endDate = $data->endDate;
+            $programs->school = $data->school;
+            $programs->name = $data->name;
+            $programs->startDate = $data->startDate;
+            $programs->endDate = $data->endDate;
 
             // Kör funktionen för att uppdatera en kurs
-            if ($studies->update($id)) {
+            if ($programs->update($id)) {
                 http_response_code(200);
-                $response = array("message" => "Study with id = $id is updated");
+                $response = array("message" => "Program with id = $id is updated");
             }
             else {
                 http_response_code(400);
-                $response = array("message" => "Studies not updated");
+                $response = array("message" => "Program not updated");
             }
         }
         break;
@@ -104,13 +102,13 @@ switch($method) {
         } 
         else {
             // Kör funktionen för att ta bort en kurs
-            if ($studies->delete($id)) {
+            if ($programs->delete($id)) {
                 http_response_code(200);
-                $response = array("message" => "Study with id = $id has been deleted");
+                $response = array("message" => "Program with id = $id has been deleted");
             }
             else {
                 http_response_code(503);
-                $response = array("message" => "Study not deleted");
+                $response = array("message" => "Program not deleted");
             }
         }
         break;        

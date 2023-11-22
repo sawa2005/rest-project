@@ -1,11 +1,10 @@
 <?php
 
-class Studies {
+class Programs {
     // Egenskaper
     public $id;
     public $school;
     public $name;
-    public $type;
     public $startDate;
     public $endDate;
 
@@ -17,7 +16,7 @@ class Studies {
     // Metoder
     public function read() {
         // SQL-fråga för att läsa ut allt (*) från tabellen kurser
-        $sql = "SELECT * FROM studies;";
+        $sql = "SELECT * FROM programs;";
         $result = mysqli_query($this->db, $sql);
             
         // Loopa genom alla rader
@@ -36,11 +35,11 @@ class Studies {
         }
 
         // Kollar att alla fält är ifyllda
-        if ($this->school && $this->name && $this->type && $this->startDate && $this->endDate) {
+        if ($this->school && $this->name && $this->startDate && $this->endDate) {
             // Ser till att ingen kod injiceras
-            if (!isHTML($this->school) && !isHTML($this->name) && !isHTML($this->type) && !isHTML($this->startDate) && !isHTML($this->endDate)) {
+            if (!isHTML($this->school) && !isHTML($this->name) && !isHTML($this->startDate) && !isHTML($this->endDate)) {
                 // SQL-fråga för att skapa en kurs med specifika värden
-                $sql = "INSERT INTO studies(school, name, type, startDate, endDate) VALUES('$this->school', '$this->name', '$this->type', '$this->startDate', '$this->endDate');";
+                $sql = "INSERT INTO programs(school, name, startDate, endDate) VALUES('$this->school', '$this->name', '$this->startDate', '$this->endDate');";
                 $result = mysqli_query($this->db, $sql);
         
                 return $result;
@@ -53,10 +52,10 @@ class Studies {
             return $string != strip_tags($string) ? true:false;
         }
 
-        if ($this->school && $this->name && $this->type && $this->startDate && $this->endDate) {
-            if (!isHTML($this->school) && !isHTML($this->name) && !isHTML($this->type) && !isHTML($this->startDate) && !isHTML($this->endDate)) {
+        if ($this->school && $this->name && $this->startDate && $this->endDate) {
+            if (!isHTML($this->school) && !isHTML($this->name) && !isHTML($this->startDate) && !isHTML($this->endDate)) {
                 // SQL-fråga för att uppdatera en specifik kurs
-                $sql = "UPDATE studies SET school = '$this->school', name = '$this->name', type = '$this->type', startDate = '$this->startDate', endDate = '$this->endDate' WHERE id = $id";
+                $sql = "UPDATE programs SET school = '$this->school', name = '$this->name', startDate = '$this->startDate', endDate = '$this->endDate' WHERE id = $id";
                 $result = mysqli_query($this->db, $sql);
 
                 return $result;

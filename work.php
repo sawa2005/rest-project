@@ -56,6 +56,7 @@ switch($method) {
         $work->title = $data->title;
         $work->startDate = $data->startDate;
         $work->endDate = $data->endDate;
+        $work->description = $data->description;
 
         // Kör funktionen för att skapa ett nytt jobb
         if ($work->create()) {
@@ -81,6 +82,7 @@ switch($method) {
             $work->title = $data->title;
             $work->startDate = $data->startDate;
             $work->endDate = $data->endDate;
+            $work->description = $data->description;
 
             // Kör funktionen för att uppdatera ett jobb
             if ($work->update($id)) {

@@ -1,10 +1,10 @@
 <?php
 class Database {
     // Databasinställningar
-    private $host = 'slw.one.mysql';
-    private $db_name = 'slw_one_main';
-    private $username = 'slw_one_main';
-    private $password = 'SaDatabaseMuel6354!?';
+    private $host = 'localhost';
+    private $db_name = 'restprojekt';
+    private $username = 'root';
+    private $password = '';
     private $conn;
 
     // Anslut till databasen

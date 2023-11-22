@@ -7,6 +7,7 @@ class Work {
     public $title;
     public $startDate;
     public $endDate;
+    public $description;
 
     // Sparar databasanslutningen för användning
     function __construct($db) {
@@ -29,19 +30,34 @@ class Work {
     }
 
     public function create() {
-        // SQL-fråga för att skapa ett jobb med specifika värden
-        $sql = "INSERT INTO work(job, title, startDate, endDate) VALUES('$this->job', '$this->title', '$this->startDate', '$this->endDate');";
-        $result = mysqli_query($this->db, $sql);
+        // Kollar om en sträng innehåller PHP eller HTML-kod
+        function isHTML($string) {
+            return $string != strip_tags($string) ? true:false;
+        }
 
-        return $result;
+        // Kollar att alla fält är ifyllda (förutom slutdatumet)
+        if ($this->job && $this->title && $this->startDate) {
+            // Ser till att ingen kod injiceras
+            if (!isHTML($this->job) && !isHTML($this->title) && !isHTML($this->startDate) && !isHTML($this->endDate)) {
+                // SQL-fråga för att skapa ett jobb med specifika värden
+                $sql = "INSERT INTO work(job, title, startDate, endDate, description) VALUES('$this->job', '$this->title', '$this->startDate', '$this->endDate', '$this->description');";
+                $result = mysqli_query($this->db, $sql);
+
+                return $result;
+            }
+        }
     }
 
     public function update($id) {
-        // SQL-fråga för att uppdatera ett specifik jobb
-        $sql = "UPDATE work SET job = '$this->job', title = '$this->title', startDate = '$this->startDate', endDate = '$this->endDate' WHERE id = $id";
-        $result = mysqli_query($this->db, $sql);
+        if ($this->job && $this->title && $this->startDate) {
+            if (!isHTML($this->job) && !isHTML($this->title) && !isHTML($this->startDate) && !isHTML($this->endDate)) {
+                // SQL-fråga för att uppdatera ett specifik jobb
+                $sql = "UPDATE work SET job = '$this->job', title = '$this->title', startDate = '$this->startDate', endDate = '$this->endDate', description = '$this->endDate' WHERE id = $id";
+                $result = mysqli_query($this->db, $sql);
 
-        return $result;
+                return $result;
+            }
+        }
     }
 
     public function delete($id) {
